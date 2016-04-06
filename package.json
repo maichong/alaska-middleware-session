@@ -1,6 +1,6 @@
 {
   "name": "alaska-session",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Alaska session middleware",
   "main": "index.js",
   "scripts": {},

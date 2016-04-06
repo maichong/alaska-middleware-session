@@ -9,6 +9,9 @@
  * @property {boolean} isNew
  * @property {number} length
  */
+
+'use strict';
+
 module.exports = class Session {
   /**
    * @constructor
