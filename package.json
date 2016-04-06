@@ -1,0 +1,27 @@
+{
+  "name": "alaska-session",
+  "version": "0.1.0",
+  "description": "Alaska session middleware",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maichong/alaska-session.git"
+  },
+  "author": {
+    "email": "liang@maichong.it",
+    "name": "liang",
+    "url": "https://github.com/liangxingchen"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maichong/alaska-session/issues"
+  },
+  "homepage": "https://github.com/maichong/alaska-session#readme",
+  "peerDependencies": {
+    "alaska": "*"
+  },
+  "dependencies": {
+    "string-random": "^0.1.0"
+  }
+}
