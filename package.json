@@ -1,6 +1,6 @@
 {
   "name": "alaska-middleware-session",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Alaska session middleware",
   "keywords": [
     "alaska",
@@ -26,6 +26,7 @@
     "alaska": "*"
   },
   "dependencies": {
+    "path-to-regexp": "*",
     "string-random": "^0.1.0"
   }
 }

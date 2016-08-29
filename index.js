@@ -8,6 +8,7 @@
 
 const Session = require('./session');
 const random = require('string-random');
+const pathToRegexp = require('path-to-regexp');
 
 module.exports = function (options) {
   const storeOpts = options.store || {};
@@ -15,8 +16,38 @@ module.exports = function (options) {
   const key = cookieOpts.key || 'alaska.sid';
   const Store = require(storeOpts.type);
   const store = new Store(storeOpts);
+  let ignore = null;
+
+  function convert(input) {
+    if (typeof input === 'string') {
+      ignore.push(pathToRegexp(input));
+    } else if (input.test) {
+      ignore.push(input);
+    } else if (input instanceof Function) {
+      ignore.push(input);
+    }
+  }
+
+  if (options.ignore) {
+    ignore = [];
+
+    if (Array.isArray(options.ignore)) {
+      options.ignore.forEach(convert);
+    } else {
+      convert(options.ignore);
+    }
+  }
 
   return function sessionMiddleware(ctx, next) {
+    if (ignore) {
+      for (let reg of ignore) {
+        if (reg.test) {
+          if (reg.test(ctx.path)) return next();
+        } else if (reg(ctx)) {
+          return next();
+        }
+      }
+    }
     return new Promise((resolve, reject) => {
       ctx.sessionKey = key;
       let sid = ctx.sessionId = ctx.cookies.get(key, cookieOpts);

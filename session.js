@@ -41,9 +41,7 @@ module.exports = class Session {
     let me = this;
     let obj = {};
     Object.keys(this).forEach(key => {
-      if (key === 'isNew' || key[0] === '_') {
-        return;
-      }
+      if (key === 'isNew' || key[0] === '_') return;
       obj[key] = me[key];
     });
     return obj;
