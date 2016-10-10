@@ -50,7 +50,8 @@ module.exports = function (options) {
     }
     return new Promise((resolve, reject) => {
       ctx.sessionKey = key;
-      let sid = ctx.sessionId = ctx.cookies.get(key, cookieOpts);
+      let sid = '';
+      sid = ctx.sessionId = (cookieOpts && cookieOpts.get) ? cookieOpts.get(ctx, key, cookieOpts) : ctx.cookies.get(key, cookieOpts);
       let json;
       let session;
 
@@ -61,7 +62,7 @@ module.exports = function (options) {
         }, onGetSession);
       } else {
         sid = ctx.sessionId = random(24);
-        ctx.cookies.set(key, sid, cookieOpts);
+        (cookieOpts && cookieOpts.set) ? cookieOpts.set(ctx, key, sid, cookieOpts) : ctx.cookies.set(key, sid, cookieOpts);
         onGetSession();
       }
 
@@ -96,7 +97,7 @@ module.exports = function (options) {
         function onNext() {
           if (session === false) {
             // 清除Session
-            ctx.cookies.set(key, '', cookieOpts);
+            (cookieOpts && cookieOpts.set) ? cookieOpts.set(ctx, key, '', cookieOpts) : ctx.cookies.set(key, '', cookieOpts);
             store.del(sid);
           } else if (!json && !session.length) {
             // 未更改
